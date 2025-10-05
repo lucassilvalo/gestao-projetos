@@ -1,11 +1,10 @@
 package com.gestaoprojetos.config;
 
-import com.gestaoprojetos.model.User;
+import com.gestaoprojetos.model.Usuario;
 import com.gestaoprojetos.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +23,11 @@ public class AdminInitializer  implements CommandLineRunner {
     public void run(String... args) {
         if (userRepository.count() == 0) { // Só cria se não existir nenhum usuário
             String rawPassword = generateSecurePassword(12); // Senha aleatória de 12 caracteres
-            User admin = User.builder()
+            Usuario admin = Usuario.builder()
                     .name("Admin")
                     .email("admin@gestaoprojetos.com")
                     .password(passwordEncoder.encode(rawPassword))
-                    .role(User.Role.ADMIN)
+                    .role(Usuario.Role.ADMIN)
                     .build();
             userRepository.save(admin);
 
